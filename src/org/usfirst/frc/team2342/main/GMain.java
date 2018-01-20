@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2342.main;
-import io.jenetics.IntegerChromosome;
-import io.jenetics.IntegerGene;
-import io.jenetics.Chromosome;
+
 import io.jenetics.DoubleChromosome;
 import io.jenetics.DoubleGene;
 import io.jenetics.Genotype;
@@ -26,7 +24,7 @@ public class GMain {
         System.out.println("Initial:\n" + gtf);
  
         // 3.) Create the execution environment.
-        Engine<DoubleGene, Integer> engine = Engine
+        Engine<DoubleGene, Double> engine = Engine
             .builder(Simulation::eval, gtf)
             .build();
  

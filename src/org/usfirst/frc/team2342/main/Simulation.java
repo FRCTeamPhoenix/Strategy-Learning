@@ -1,32 +1,16 @@
 package org.usfirst.frc.team2342.main;
 
-import io.jenetics.Chromosome;
 import io.jenetics.DoubleGene;
-import io.jenetics.Gene;
 import io.jenetics.Genotype;
-import io.jenetics.IntegerChromosome;
-import io.jenetics.IntegerGene;
 import io.jenetics.NumericGene;
-import jeigen.DenseMatrix;
 
+import jeigen.DenseMatrix;
 import static jeigen.Shortcuts.*;
 
 public class Simulation {
 	
-	/*public static int[][] genotypeToMatrix(Genotype<IntegerGene> gtf) {
-		int[][] matrix = new int[gtf.length()][gtf.getChromosome(0).length()];
-		int x = 0;
-		int y = 0;
-		for (Chromosome<IntegerGene> c : gtf) {
-			x = 0;
-			for (IntegerGene g : c) {
-				matrix[y][x] = g.intValue();
-				x++;
-			}
-			y++;
-		}
-		return matrix;
-	}*/
+	// genotypeToMatrix
+	// Turns a numeric genotype (Genotype<NumericGene>) into a DenseMatrix
 	
 	public static <N extends Number & Comparable<? super N>,G extends NumericGene<N,G>> DenseMatrix genotypeToMatrix(Genotype<G> gt) {
 		int rows = gt.length();
@@ -43,13 +27,11 @@ public class Simulation {
 		return mat;
 	}
 	
-	public static int eval(Genotype<DoubleGene> gt) {
+	public static double eval(Genotype<DoubleGene> gt) {
 		DenseMatrix matrix = genotypeToMatrix(gt);
-		System.out.println(matrix);
 		
 		DenseMatrix state = zeros(matrix.cols, 1);
 		state.set(0, 0, 1);
-		System.out.println(state);
 		
 		// Starts in State A:
 		
@@ -62,7 +44,7 @@ public class Simulation {
 		}
 		
 		
-		// Try to end on State C
-		return (int) state.get(2, 0) * 1000;
+		// Try to maximize on State C
+		return state.get(2, 0);
 	}
 }
